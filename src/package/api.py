@@ -16,13 +16,13 @@ app = Flask(__name__)
 
 user = User()
 
-@app.route('upload/ehr', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         try:
             if 'file' in request.form:
-                file = request.form['file']
-                file_name = "file.txt"
+                file = request.files.getlist("file[]")
+                file_name = "file"
                 file_bytes = file.encode('utf-8')
                 file_stream = io.BytesIO(file_bytes)
 
@@ -43,6 +43,17 @@ def upload_file():
     <input type=submit value=Text>
     </form>
     '''
+
+@app.route('/download', methods=['GET'])
+def download_file():
+    file_name = request.headers.get('file_name')
+    file = user.download_file(file_name)
+    if isinstance(file, dict): 
+        return {'msg': file['error']}, 400
+    return Response (
+        file, 
+        headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
+    ), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
