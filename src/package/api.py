@@ -16,8 +16,10 @@ app = Flask(__name__)
 
 user = User()
 user.set_user()
-file_prefetched = user.download_file("test5.txt")
-
+file_prefetched_5mb = user.download_file("file5mb.txt")
+file_prefetched_50mb = user.download_file("file50mb.txt")
+file_prefetched_500mb = user.download_file("file500mb.txt")
+file_prefetched_1000mb = user.download_file("file1gb.txt")
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -59,11 +61,35 @@ def download_file():
         headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
     ), 200
 
-@app.route('/downloadPrefetch', methods=['GET'])
-def download_file_prefetch():
+@app.route('/downloadPrefetch5', methods=['GET'])
+def download_file_prefetch5():
     file_name = request.headers.get('file_name')
     return Response (
-        file_prefetched, 
+        file_prefetched_5mb, 
+        headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
+    ), 200
+
+@app.route('/downloadPrefetch50', methods=['GET'])
+def download_file_prefetch50():
+    file_name = request.headers.get('file_name')
+    return Response (
+        file_prefetched_50mb, 
+        headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
+    ), 200
+
+@app.route('/downloadPrefetch500', methods=['GET'])
+def download_file_prefetch500():
+    file_name = request.headers.get('file_name')
+    return Response (
+        file_prefetched_500mb, 
+        headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
+    ), 200
+
+@app.route('/downloadPrefetch1000', methods=['GET'])
+def download_file_prefetch1000():
+    file_name = request.headers.get('file_name')
+    return Response (
+        file_prefetched_1000mb, 
         headers={"Content-Disposition": "attachment;filename=hr_file.txt"} 
     ), 200
 
