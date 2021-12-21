@@ -1,6 +1,6 @@
 MINIO_CONFIG={
-    'MINIO_ENDPOINT': "213.249.46.253:9000",
-    'MINIO_ACCESS_KEY': "minioadmin",
-    'MINIO_SECRET_KEY': "minioadmin",
+    'MINIO_ENDPOINT': "",
+    'MINIO_ACCESS_KEY': "",
+    'MINIO_SECRET_KEY': "",
     'MINIO_SECURE': False
 }
